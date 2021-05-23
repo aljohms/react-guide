@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; //useState is a hook that is used to update UI.
+import React from 'react'; //useState is a hook that is used to update UI.
 import './ExpenseItem.css';
 import ExpenseDate from './ExpenseDate';
 import Card from '../UI/Card';
@@ -7,7 +7,7 @@ import Card from '../UI/Card';
 function ExpenseItem(props) {
     //useState must be called inside of a component function only (not inside nested functions)
     //useState registers this instance of component in state only
-    const [title, setTitle] = useState(props.title);//array destructuring = useState is an array that conains a value and a function to update the value
+   // const [title, setTitle] = useState(props.title);//array destructuring = useState is an array that conains a value and a function to update the value
 
 
     //Arrow function for event listener in react or just normal function (both are ok for any fucntion)
@@ -21,7 +21,7 @@ function ExpenseItem(props) {
             <Card className="expense-item">
                 <ExpenseDate date={props.date} />
                 <div className="expense-item__description">
-                    <h2>{title}</h2>
+                    <h2>{props.title}</h2>
                     <div className="expense-item__price">
                         {props.amount}
                     </div>
