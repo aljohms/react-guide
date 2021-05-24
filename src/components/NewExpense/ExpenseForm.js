@@ -43,6 +43,8 @@ const ExpenseForm = (props) => {
             return { ...prevState, enteredDate: event.target.value };
         });
     }
+
+
     const submitHandler = (event) => {
         event.preventDefault();
 
@@ -50,17 +52,24 @@ const ExpenseForm = (props) => {
             title: userInput.enteredTitle,
             amount: userInput.enteredAmount,
             date: new Date(userInput.enteredDate),
-         };
+        };
 
         props.onSaveExpenseData(expenseData);
 
-        setUserInput(()=> {
-            return { enteredDate: '', enteredAmount:'',enteredTitle:''}
+        setUserInput(() => {
+            return { enteredDate: '', enteredAmount: '', enteredTitle: '' }
         });
 
     }
-    return (
-        <form onSubmit={submitHandler}>
+    const [displayForm, setDisplayForm] = useState(false);
+
+    const toggleForm = (event) => {
+        event.preventDefault();
+        setDisplayForm(!displayForm);
+    }
+
+    const expenseFormContent =
+        <form>
             <div className="new-expense__controls">
                 <div className="new-expense__control">
                     <label>Title</label>
@@ -76,10 +85,24 @@ const ExpenseForm = (props) => {
                 </div>
             </div>
             <div className="new-expense__actions">
-                <button>submit</button>
+                <button onClick={submitHandler}>submit</button><button onClick={toggleForm}>cancel</button>
             </div>
         </form>
-    );
+
+
+
+
+
+    if (displayForm === true)
+        return (expenseFormContent);
+    else
+        return (<div className="new-expense__actions">
+            <button onClick={toggleForm}>Add New Expense</button>
+        </div>);
+
+
+
+
 };
 
 export default ExpenseForm;
